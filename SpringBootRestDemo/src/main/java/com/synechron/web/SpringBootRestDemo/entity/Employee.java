@@ -1,11 +1,16 @@
 package com.synechron.web.SpringBootRestDemo.entity;
 
+import java.util.List;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +30,11 @@ public class Employee {
 	@Column(name="city")
 	private String city;
 	private String country;
+	
+//	@OneToOne
+//	@JoinColumn(name="laptopid")
+//	private Laptop laptop;
+	
+	@OneToMany(mappedBy = "employee")
+	private List<Laptop> laptop;
 }
