@@ -1,0 +1,54 @@
+package com.synechron.web.SpringBootRestDemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.synechron.web.SpringBootRestDemo.entity.Employee;
+import com.synechron.web.SpringBootRestDemo.repo.EmployeeRepo;
+
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
+
+@Service
+public class EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+	
+	public long getEmployeeCount() {
+		
+		return this.employeeRepo.count();
+	}
+	public Employee addEmployee(Employee emp) {
+		if(employeeRepo.existsById(emp.getId()))
+			throw new EntityExistsException();
+		return this.employeeRepo.save(emp);
+	}
+	public List<Employee> findAllByCity(String city){
+		return this.employeeRepo.findByCity(city);
+	}
+	public List<Employee> findAll(){
+		return this.employeeRepo.findAll();
+	}
+	public Employee getEmployeeById(int id) {
+		return this.employeeRepo.findById(id)
+				.orElseThrow(new EntityNotFoundException(""));
+	}
+	// page = 1, size = 7
+	// 5 pages: 0
+	public List<Employee> getEmployees(int pageno, int size){
+		Pageable pageable = PageRequest.of(pageno, size);
+		Page<Employee> page= this.employeeRepo.findAll(pageable);
+		System.out.println(page.getNumber());
+		System.out.println(page.getNumberOfElements());
+		System.out.println(page.getSize());
+		System.out.println(page.getTotalElements());
+		System.out.println(page.getTotalPages());
+		return page.getContent();
+	}
+}

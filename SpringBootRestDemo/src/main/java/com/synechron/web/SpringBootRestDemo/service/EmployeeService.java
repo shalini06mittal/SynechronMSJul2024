@@ -12,6 +12,7 @@ import com.synechron.web.SpringBootRestDemo.entity.Employee;
 import com.synechron.web.SpringBootRestDemo.repo.EmployeeRepo;
 
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EmployeeService {
@@ -28,8 +29,20 @@ public class EmployeeService {
 			throw new EntityExistsException();
 		return this.employeeRepo.save(emp);
 	}
+	public Employee updateEmployee(Employee emp) {
+		if(!employeeRepo.existsById(emp.getId()))
+			throw new EntityNotFoundException("Employee does not exist");
+		return this.employeeRepo.save(emp);
+	}
 	public List<Employee> findAllByCity(String city){
 		return this.employeeRepo.findByCity(city);
+	}
+	public List<Employee> findAll(){
+		return this.employeeRepo.findAll();
+	}
+	public Employee getEmployeeById(int id) {
+		return this.employeeRepo.findById(id)
+				.orElseThrow(()->new EntityNotFoundException("Employee does not exist"));
 	}
 	// page = 1, size = 7
 	// 5 pages: 0

@@ -1,0 +1,20 @@
+package com.synechron.web.SpringBootRestDemo.rest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.synechron.web.SpringBootRestDemo.service.EmployeeService;
+
+@RestController
+@RequestMapping("/employees")
+public class EmployeeRestController {
+
+	@Autowired
+	private EmployeeService eService;
+	
+	@GetMapping
+	public 
+	
+}

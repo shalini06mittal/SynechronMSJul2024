@@ -1,0 +1,129 @@
+package com.synechron.web.SpringBootRestDemo.rest;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.synechron.web.SpringBootRestDemo.entity.Employee;
+import com.synechron.web.SpringBootRestDemo.service.EmployeeService;
+
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
+// JSON
+@RestController
+@RequestMapping("/employees")
+public class EmployeeRestController {
+
+	@Autowired
+	private EmployeeService eService;
+	// Query parameter
+	//http://www.localhost:8080/employees?city='Mumbai'
+	@GetMapping(produces = {"application/json","application/xml"})
+	public List<Employee> getAllEmployees(
+			@RequestParam(required = false) String city){
+		System.out.println("City "+city);
+		if(city == null)
+			return this.eService.findAll();
+		return this.eService.findAllByCity(city);
+	}
+	@GetMapping
+	public List<Employee> getAllEmployees(
+			@RequestParam(required = false) String city){
+		System.out.println("City "+city);
+		if(city == null)
+			return this.eService.findAll();
+		return this.eService.findAllByCity(city);
+	}
+	//	@PostMapping// insert
+	//	public Employee addNewEmployee(@RequestBody Employee employee) {
+	//		System.out.println(employee);
+	//		try {
+	//			return this.eService.addEmployee(employee);
+	//		}catch(EntityExistsException e) {
+	//			return null;
+	//		}
+	//	}
+
+	//	@PostMapping// insert
+	//	public Map<String, Object> addNewEmployee(@RequestBody Employee employee) {
+	//		System.out.println(employee);
+	//		Map<String, Object> map = new HashMap();
+	//		try {
+	//			Employee emp = this.eService.addEmployee(employee);
+	//			map.put("message", "Insertion successful");
+	//			map.put("employee", employee);
+	//		}catch(EntityExistsException e) {
+	//			map.put("message", "Insertion unsuccessful");
+	//		}
+	//		return map;
+	//	}
+	@PostMapping// insert
+	public ResponseEntity<Object> addNewEmployee(@RequestBody Employee employee) {
+		System.out.println(employee);
+		Map<String, Object> map = new HashMap();
+		try {
+			Employee emp = this.eService.addEmployee(employee);
+			map.put("message", "Insertion successful");
+			map.put("employee", employee);
+			return ResponseEntity.ok(map);
+		}catch(EntityExistsException e) {
+			map.put("message", "Insertion unsuccessful");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+		}
+	}
+	@PutMapping// insert
+	public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee) {
+		System.out.println(employee);
+		Map<String, Object> map = new HashMap();
+		try {
+			Employee emp = this.eService.updateEmployee(employee);
+			map.put("message", "Update successful");
+			map.put("employee", employee);
+			return ResponseEntity.ok(map);
+		}catch(EntityNotFoundException e) {
+			map.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+		}
+	}
+	/**
+	 * PATH PARAM
+	 * http://www.localhost:8080/employees/10
+	 * 
+	 */
+	// if path placeholder and methos paramehte are same then 
+	// need to specify mapping explicitly
+	//	@GetMapping("/{id}")
+	//	public Employee getEmployee(@PathVariable(name = "id") int eid) {
+	//		return this.eService.getEmployeeById(eid);
+	//	}
+	// if path placeholder and methos paramehte are same then 
+	// no need to specify mapping explicitly
+	//	@GetMapping("/{eid}")
+	//	public Employee getEmployee(@PathVariable int eid) {
+	//		return this.eService.getEmployeeById(eid);
+	//	}
+	@GetMapping("/{eid}")
+	public ResponseEntity<Object> getEmployee(@PathVariable int eid) {
+		Map<String, Object> map = new HashMap();
+		try {
+			Employee emp = this.eService.getEmployeeById(eid);
+			return ResponseEntity.ok(map);
+		}catch(EntityNotFoundException e) {
+			map.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+		}
+	}
+
+}

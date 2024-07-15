@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
+	
 	@Id// auto-increment
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

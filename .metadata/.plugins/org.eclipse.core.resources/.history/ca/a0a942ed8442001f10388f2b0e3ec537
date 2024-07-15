@@ -1,0 +1,12 @@
+package com.synechron.web.SpringBootRestDemo.rest;
+
+public class HelloRestController {
+
+	// mode (JSON/ XML) , medium - internet(protocol)
+	/**
+	 * zomato - .net
+	 * pizzahut -> java
+	 * android or ios 
+	 */
+	
+}
