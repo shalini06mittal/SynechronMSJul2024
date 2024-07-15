@@ -47,7 +47,7 @@ public class SpringBootRestDemoApplication {
 //		for(Employee emp:employeeService.findAllByCity("Mumbai"))
 //			System.out.println(emp);
 		
-		for(Employee emp:employeeService.getEmployees(1, 8))
+		for(Employee emp:employeeService.getEmployees(1, 10))
 			System.out.println(emp);
 		//System.out.println(employeeService.addEmployee(e2));
 	}
@@ -75,7 +75,6 @@ public class SpringBootRestDemoApplication {
 			e.setCity("city "+i);
 			e.setName("name "+i);
 			e.setCountry("country "+i);
-			employeeRepo.save(e);
 		}
 	}
 }

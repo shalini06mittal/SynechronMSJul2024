@@ -35,6 +35,6 @@ public class Employee {
 //	@JoinColumn(name="laptopid")
 //	private Laptop laptop;
 	
-//	@OneToMany(mappedBy = "employee")
-//	private List<Laptop> laptop;
+	@OneToMany(mappedBy = "employee")
+	private List<Laptop> laptop;
 }

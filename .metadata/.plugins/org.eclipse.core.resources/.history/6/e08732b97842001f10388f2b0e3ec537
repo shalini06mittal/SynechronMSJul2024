@@ -33,14 +33,10 @@ public class EmployeeService {
 	}
 	// page = 1, size = 7
 	// 5 pages: 0
-	public List<Employee> getEmployees(int pageno, int size){
-		Pageable pageable = PageRequest.of(pageno, size);
+	public List<Employee> getEmployees(int page, int size){
+		Pageable pageable = PageRequest.of(page, size);
 		Page<Employee> page= this.employeeRepo.findAll(pageable);
-		System.out.println(page.getNumber());
-		System.out.println(page.getNumberOfElements());
-		System.out.println(page.getSize());
-		System.out.println(page.getTotalElements());
-		System.out.println(page.getTotalPages());
-		return page.getContent();
+		
+		return null;
 	}
 }

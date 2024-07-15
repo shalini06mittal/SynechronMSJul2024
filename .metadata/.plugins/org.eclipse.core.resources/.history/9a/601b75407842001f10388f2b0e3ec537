@@ -38,16 +38,13 @@ public class SpringBootRestDemoApplication {
 		e1.setCity("Mumbai");
 		e1.setName("Shalini");
 		e1.setCountry("India");
-		//System.out.println(employeeService.addEmployee(e1));
+		System.out.println(employeeService.addEmployee(e1));
 		Employee e2 = new Employee();
 		e2.setId(1);
 		e2.setCity("Mumbai");
 		e2.setName("Madhav");
 		e2.setCountry("India");
-//		for(Employee emp:employeeService.findAllByCity("Mumbai"))
-//			System.out.println(emp);
-		
-		for(Employee emp:employeeService.getEmployees(1, 8))
+		for(Employee emp:employeeService.findAllByCity("Mumbai"))
 			System.out.println(emp);
 		//System.out.println(employeeService.addEmployee(e2));
 	}
@@ -70,12 +67,5 @@ public class SpringBootRestDemoApplication {
 		e3.setName("Ajay");
 		e3.setCountry("India");
 		employeeRepo.saveAll(Arrays.asList(e1,e2,e3));
-		for(int i=4;i<=50;i++) {
-			Employee e = new Employee();
-			e.setCity("city "+i);
-			e.setName("name "+i);
-			e.setCountry("country "+i);
-			employeeRepo.save(e);
-		}
 	}
 }

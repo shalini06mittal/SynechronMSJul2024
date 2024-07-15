@@ -3,9 +3,6 @@ package com.synechron.web.SpringBootRestDemo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.synechron.web.SpringBootRestDemo.entity.Employee;
@@ -31,16 +28,7 @@ public class EmployeeService {
 	public List<Employee> findAllByCity(String city){
 		return this.employeeRepo.findByCity(city);
 	}
-	// page = 1, size = 7
-	// 5 pages: 0
-	public List<Employee> getEmployees(int pageno, int size){
-		Pageable pageable = PageRequest.of(pageno, size);
-		Page<Employee> page= this.employeeRepo.findAll(pageable);
-		System.out.println(page.getNumber());
-		System.out.println(page.getNumberOfElements());
-		System.out.println(page.getSize());
-		System.out.println(page.getTotalElements());
-		System.out.println(page.getTotalPages());
-		return page.getContent();
+	public List<Employee> getEmployees(int page, int size){
+		return ull;
 	}
 }

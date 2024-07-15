@@ -24,6 +24,6 @@ public class Laptop {
 //	@OneToOne(mappedBy = "laptop")
 //	private Employee employee;
 	
-//	@ManyToOne
-//	private Employee employee;
+	@ManyToOne
+	private Employee employee;
 }
