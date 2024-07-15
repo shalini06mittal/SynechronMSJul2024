@@ -5,14 +5,19 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @ControllerAdvice
+//@Component
 public class GlobalHandler {
 
+	public GlobalHandler() {
+		System.out.println("global handler");
+	}
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex){
 		Map<String, Object> map = new  HashMap();

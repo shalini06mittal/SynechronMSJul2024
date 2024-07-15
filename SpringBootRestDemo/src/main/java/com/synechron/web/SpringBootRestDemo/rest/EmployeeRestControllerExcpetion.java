@@ -47,6 +47,15 @@ public class EmployeeRestControllerExcpetion {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 	}
 	
+	/**
+	 * {
+        "name": "name 51",
+        "city": "city 51",
+        "country": "country 51"
+    }
+	 * @param employee
+	 * @return
+	 */
 	@PostMapping// insert
 	public ResponseEntity<Object> addNewEmployee(@RequestBody Employee employee) {
 			Employee emp = this.eService.addEmployee(employee);

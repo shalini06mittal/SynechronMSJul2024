@@ -7,13 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 
 import com.synechron.web.SpringBootRestDemo.entity.Employee;
 import com.synechron.web.SpringBootRestDemo.repo.EmployeeRepo;
 import com.synechron.web.SpringBootRestDemo.service.EmployeeService;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import jakarta.annotation.PostConstruct;
 //jdbc:h2:mem:94477974-c1ad-4e4a-81c6-275dd0eb5b8e
 /**
@@ -54,7 +55,7 @@ public class SpringBootRestDemoApplication {
 	@Autowired
 	private EmployeeRepo employeeRepo; 
 	
-	@PostConstruct
+	//@PostConstruct
 	//@Bean // @
 	void initialize() {
 		Employee e1 = new Employee();
@@ -77,5 +78,15 @@ public class SpringBootRestDemoApplication {
 			e.setCountry("country "+i);
 			employeeRepo.save(e);
 		}
+	}
+	@Bean
+	public OpenAPI customOpenAPI() {
+	return new OpenAPI()
+		.info(new Info()
+		.title("sample application API")
+		.version("v1.0")
+		.description("Used to expose API for contacts")
+		.termsOfService("http://swagger.io/terms/")
+		.license(new License().name("Shalini").url("http://springdoc.org")));
 	}
 }
