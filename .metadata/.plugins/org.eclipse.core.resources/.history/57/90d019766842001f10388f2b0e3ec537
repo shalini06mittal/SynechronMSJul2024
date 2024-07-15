@@ -1,0 +1,11 @@
+package demo;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class HelloService {
+
+	public HelloService() {
+		System.out.println("My service constructor");
+	}
+}

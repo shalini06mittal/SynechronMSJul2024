@@ -1,0 +1,16 @@
+package com.synechron.web.SpringBootRestDemo;// root package
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+
+@SpringBootApplication
+//@ComponentScan("demo")
+public class SpringBootRestDemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootRestDemoApplication.class, args);
+	}
+
+}

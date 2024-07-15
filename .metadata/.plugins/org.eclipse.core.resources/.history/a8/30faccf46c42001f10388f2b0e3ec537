@@ -1,0 +1,5 @@
+package com.synechron.web.SpringBootRestDemo.repo;
+
+public interface EmployeeRepo {
+
+}
