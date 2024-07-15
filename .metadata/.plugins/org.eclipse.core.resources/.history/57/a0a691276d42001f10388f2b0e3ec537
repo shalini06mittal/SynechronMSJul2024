@@ -1,5 +1,0 @@
-package com.synechron.web.SpringBootRestDemo.service;
-
-public class EmployeeService {
-
-}

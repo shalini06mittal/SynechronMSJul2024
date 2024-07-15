@@ -1,6 +1,0 @@
-package com.synechron.web.SpringBootRestDemo.rest;
-
-public class EmployeeRestController {
-
-	
-}

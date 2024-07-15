@@ -1,8 +1,0 @@
-package com.synechron.web.SpringBootRestDemo.entity;
-
-import jakarta.persistence.Entity;
-
-@Entity// databse managed entity
-public class Employee {
-	
-}
