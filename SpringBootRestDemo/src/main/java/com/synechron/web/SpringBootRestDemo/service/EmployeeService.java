@@ -26,7 +26,7 @@ public class EmployeeService {
 	}
 	public Employee addEmployee(Employee emp) {
 		if(employeeRepo.existsById(emp.getId()))
-			throw new EntityExistsException();
+			throw new EntityExistsException("Cannot insert as employee with id already exists");
 		return this.employeeRepo.save(emp);
 	}
 	public Employee updateEmployee(Employee emp) {

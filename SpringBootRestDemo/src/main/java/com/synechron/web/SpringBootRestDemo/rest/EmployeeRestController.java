@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,12 +79,16 @@ public class EmployeeRestController {
 	//		}
 	//		return map;
 	//	}
+	
+	
+	
 	@PostMapping// insert
 	public ResponseEntity<Object> addNewEmployee(@RequestBody Employee employee) {
 		System.out.println(employee);
 		Map<String, Object> map = new HashMap();
 		try {
 			Employee emp = this.eService.addEmployee(employee);
+			
 			map.put("message", "Insertion successful");
 			map.put("employee", employee);
 			return ResponseEntity.ok(map);
@@ -100,6 +105,17 @@ public class EmployeeRestController {
 			Employee emp = this.eService.updateEmployee(employee);
 			map.put("message", "Update successful");
 			map.put("employee", employee);
+			return ResponseEntity.ok(map);
+		}catch(EntityNotFoundException e) {
+			map.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+		}
+	}
+	@GetMapping("/{eid}")
+	public ResponseEntity<Object> getEmployee(@PathVariable int eid) {
+		Map<String, Object> map = new HashMap();
+		try {
+			Employee emp = this.eService.getEmployeeById(eid);
 			return ResponseEntity.ok(map);
 		}catch(EntityNotFoundException e) {
 			map.put("message", e.getMessage());
@@ -123,16 +139,6 @@ public class EmployeeRestController {
 	//	public Employee getEmployee(@PathVariable int eid) {
 	//		return this.eService.getEmployeeById(eid);
 	//	}
-	@GetMapping("/{eid}")
-	public ResponseEntity<Object> getEmployee(@PathVariable int eid) {
-		Map<String, Object> map = new HashMap();
-		try {
-			Employee emp = this.eService.getEmployeeById(eid);
-			return ResponseEntity.ok(map);
-		}catch(EntityNotFoundException e) {
-			map.put("message", e.getMessage());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
-		}
-	}
+	
 
 }
