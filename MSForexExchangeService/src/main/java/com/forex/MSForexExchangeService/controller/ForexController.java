@@ -19,10 +19,10 @@ public class ForexController {
     @GetMapping("/forex-exchange/from/{from}/to/{to}")
     public CurrencyExcchange retrieveExchangeValue
             (@PathVariable String from, @PathVariable String to){
-
     	System.out.println(repository.count());
     	CurrencyExcchange exchangeValue =
                 repository.findByFromAndTo(from, to);
+        System.out.println(environment.getProperty("java.version"));
         exchangeValue.setPort(environment.getProperty("server.port", Integer.class));
         System.out.println(exchangeValue.getPort());
         return exchangeValue;
