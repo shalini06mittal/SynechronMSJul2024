@@ -97,7 +97,7 @@ public class EmployeeRestController {
 			map.put("employee", employee);
 			return ResponseEntity.ok(map);
 		}catch(EntityExistsException e) {
-			map.put("message", "Insertion unsuccessful");
+			map.put("message", e.getMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 		}
 	}

@@ -20,7 +20,15 @@ public class GlobalHandler {
 	}
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex){
-		Map<String, Object> map = new  HashMap();
+		System.out.println("entity not found");
+		Map<String, Object> map = new  HashMap<>();
+		map.put("message", ex.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+	}
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Object> handleEntityNotFound(Exception ex){
+		System.out.println("general exception");
+		Map<String, Object> map = new  HashMap<>();
 		map.put("message", ex.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 	}

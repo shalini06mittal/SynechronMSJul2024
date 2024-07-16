@@ -9,7 +9,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.synechron.web.SpringBootRestDemo.entity.Employee;
+import com.synechron.web.SpringBootRestDemo.entity.Laptop;
 import com.synechron.web.SpringBootRestDemo.repo.EmployeeRepo;
+import com.synechron.web.SpringBootRestDemo.repo.LaptopRepo;
 import com.synechron.web.SpringBootRestDemo.service.EmployeeService;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -55,29 +57,39 @@ public class SpringBootRestDemoApplication {
 	@Autowired
 	private EmployeeRepo employeeRepo; 
 	
-	//@PostConstruct
+	@Autowired
+	private LaptopRepo lrepo;
+	@PostConstruct
 	//@Bean // @
 	void initialize() {
 		Employee e1 = new Employee();
 		e1.setCity("Mumbai");
 		e1.setName("Shalini");
 		e1.setCountry("India");
-		Employee e2 = new Employee();
-		e2.setCity("Pune");
-		e2.setName("Riya");
-		e2.setCountry("India");
-		Employee e3 = new Employee();
-		e3.setCity("Mumbai");
-		e3.setName("Ajay");
-		e3.setCountry("India");
-		employeeRepo.saveAll(Arrays.asList(e1,e2,e3));
-		for(int i=4;i<=50;i++) {
-			Employee e = new Employee();
-			e.setCity("city "+i);
-			e.setName("name "+i);
-			e.setCountry("country "+i);
-			employeeRepo.save(e);
-		}
+		Laptop l1 = new Laptop();
+		l1.setBrand("Apple");
+		l1.setOs("MAC M1");
+		
+		l1 = lrepo.save(l1);
+		e1.setLaptop(l1);
+		Employee ob = employeeRepo.save(e1);
+		
+//		Employee e2 = new Employee();
+//		e2.setCity("Pune");
+//		e2.setName("Riya");
+//		e2.setCountry("India");
+//		Employee e3 = new Employee();
+//		e3.setCity("Mumbai");
+//		e3.setName("Ajay");
+//		e3.setCountry("India");
+//		employeeRepo.saveAll(Arrays.asList(e1,e2,e3));
+//		for(int i=4;i<=50;i++) {
+//			Employee e = new Employee();
+//			e.setCity("city "+i);
+//			e.setName("name "+i);
+//			e.setCountry("country "+i);
+//			employeeRepo.save(e);
+//		}
 	}
 	@Bean
 	public OpenAPI customOpenAPI() {

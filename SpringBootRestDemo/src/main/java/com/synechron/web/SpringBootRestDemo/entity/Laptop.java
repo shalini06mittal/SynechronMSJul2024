@@ -21,8 +21,8 @@ public class Laptop {
 	private int laptopid;
 	private String brand;
 	private String os;
-//	@OneToOne(mappedBy = "laptop")
-//	private Employee employee;
+	@OneToOne(mappedBy = "laptop")
+	private Employee employee;
 	
 //	@ManyToOne
 //	private Employee employee;

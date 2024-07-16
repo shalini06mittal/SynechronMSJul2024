@@ -32,7 +32,7 @@ public class EmployeeRestControllerExcpetion {
 	
 	@GetMapping(produces = {"application/json","application/xml"})
 	public List<Employee> getAllEmployees(
-			@RequestParam(required = false) String city){
+			@RequestParam String city){
 		System.out.println("City "+city);
 		if(city == null)
 			return this.eService.findAll();

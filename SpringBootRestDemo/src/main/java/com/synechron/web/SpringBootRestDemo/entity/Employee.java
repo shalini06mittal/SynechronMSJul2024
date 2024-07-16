@@ -38,9 +38,9 @@ public class Employee {
 	private String city;
 	private String country;
 	
-//	@OneToOne
-//	@JoinColumn(name="laptopid")
-//	private Laptop laptop;
+	@OneToOne
+	@JoinColumn(name="laptopid")
+	private Laptop laptop;
 	
 //	@OneToMany(mappedBy = "employee")
 //	private List<Laptop> laptop;
