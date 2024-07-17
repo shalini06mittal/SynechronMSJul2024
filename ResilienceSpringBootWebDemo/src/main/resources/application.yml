@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 management:
   health:
@@ -56,6 +56,18 @@ resilience4j:
         subscribeForEvents: true
         eventConsumerBufferSize: 50
 
+spring:
+  application:
+    name: RESIL-CB-DEMO
+  profiles:
+    active:
+      - production
+  config:
+    import:
+      - optional:configserver:http://localhost:8888/
+  cloud:
+    config:
+      name: config-server-client
 
 
 #resilience4j.retry:
