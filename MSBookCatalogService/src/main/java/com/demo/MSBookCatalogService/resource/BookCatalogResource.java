@@ -2,6 +2,7 @@ package com.demo.MSBookCatalogService.resource;
 
 import java.util.List;
 
+import com.demo.MSBookCatalogService.model.OrderWrapper;
 import com.demo.MSBookCatalogService.model.UserCatalog;
 import com.demo.MSBookCatalogService.service.BookCatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class BookCatalogResource {
 	public List<UserCatalog> getBooksPurchased(@PathVariable String email)
 	{
 		return service.getBooksOrdered(email);
+	}
+
+	@GetMapping("/wrapper/{email}")
+	public List<OrderWrapper> getBooksPurchasedWrapper(@PathVariable String email)
+	{
+		return service.getBooksOrderedWrapper(email);
 	}
 	
 }
