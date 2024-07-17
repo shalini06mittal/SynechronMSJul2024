@@ -6,6 +6,7 @@ import com.demo.MSBookCatalogService.model.OrderWrapper;
 import com.demo.MSBookCatalogService.model.UserCatalog;
 import com.demo.MSBookCatalogService.service.BookCatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class BookCatalogResource {
 	private BookCatalogService service;
 	
 	@GetMapping("/{email}")
-	public List<UserCatalog> getBooksPurchased(@PathVariable String email)
+	public ResponseEntity<Object> getBooksPurchased(@PathVariable String email)
 	{
 		return service.getBooksOrdered(email);
 	}
