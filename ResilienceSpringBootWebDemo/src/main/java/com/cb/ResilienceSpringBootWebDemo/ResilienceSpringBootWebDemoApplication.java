@@ -1,5 +1,6 @@
 package com.cb.ResilienceSpringBootWebDemo;
 
+import com.cb.ResilienceSpringBootWebDemo.api.ExternalAPICaller;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.context.annotation.Bean;
 
 import java.time.Duration;
+import java.util.concurrent.CompletionStage;
 
 //https://www.baeldung.com/spring-boot-resilience4j
 //https://github.com/eugenp/tutorials/blob/master/spring-cloud-modules/spring-cloud-gateway-2/pom.xml
@@ -17,6 +19,15 @@ import java.time.Duration;
 public class ResilienceSpringBootWebDemoApplication {
 
 	public static void main(String[] args) {
+//		ExternalAPICaller apiService = new ExternalAPICaller();
+//
+//		CompletionStage<String> completionStage = apiService.callApiWithDelay(2000L);
+//
+//		completionStage.thenApply(responseDTO -> {
+//			// Here you can work with the ExternalApiResponseDTO
+//			System.out.println("Received response: " + responseDTO.getMessage());
+//			return responseDTO; // Return the DTO if you need to chain more operations
+//		});
 		SpringApplication.run(ResilienceSpringBootWebDemoApplication.class, args);
 	}
 

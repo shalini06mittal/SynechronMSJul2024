@@ -33,8 +33,8 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowSize: 3
         slidingWindowType: COUNT_BASED
-        slowCallRateThreshold: 40
-        slowCallDurationThreshold: 2s
+#        slowCallRateThreshold: 40
+#        slowCallDurationThreshold: 2s
   timelimiter:
     metrics:
       enabled: true
@@ -42,6 +42,19 @@ resilience4j:
       timeLimiterApi:
         timeoutDuration: 2s
         cancelRunningFuture: false
+  ratelimiter:
+    metrics:
+      enabled: true
+    instances:
+      rateLimiterApi:
+        registerHealthIndicator: true
+        limitForPeriod: 5
+        limitRefreshPeriod: 30s
+        timeoutDuration: 0s
+        allowHealthIndicatorToFail: true
+        subscribeForEvents: true
+        eventConsumerBufferSize: 50
+
 
 
 #resilience4j.retry:

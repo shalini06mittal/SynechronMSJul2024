@@ -28,6 +28,13 @@ public class ApiController {
     public String circuitBreakerApi() {
         return externalAPICaller.callApi();
     }
+    @GetMapping("/circuit-breaker/id/{id}")
+    @CircuitBreaker(name = circuitBreaker, fallbackMethod = "fallbackAfterCircuitBreaker")
+    public String circuitBreakerApi(@PathVariable int id) {
+        System.out.println("passsing id");
+            return externalAPICaller.callApi(id);
+
+    }
     @GetMapping("/circuit-breaker/{delay}")
     @CircuitBreaker(name = circuitBreaker)
     public String circuitBreakerApiSLowCallRate(@PathVariable long delay) {
@@ -37,13 +44,16 @@ public class ApiController {
     @GetMapping("/retry/{message}")
     @Retry(name = "retryApi", fallbackMethod = "fallbackAfterRetry")
     public String retryApi(@PathVariable String message) {
+        System.out.println("retry api");
         return externalAPICaller.callApiRetry(message);
     }
 
-    @GetMapping("/time-limiter")
-    @TimeLimiter(name = "timeLimiterApi")
-    public CompletableFuture<String> timeLimiterApi() {
-        return CompletableFuture.supplyAsync(externalAPICaller::callApiWithDelay);
+    @GetMapping("/time-limiter/{delay}")
+    @CircuitBreaker(name = circuitBreaker, fallbackMethod = "fallbackAfterTimeLimiter")
+    @TimeLimiter(name = "timeLimiterApi")//, fallbackMethod ="fallbackAfterTimeLimiter" )
+    public CompletableFuture<String> timeLimiterApi(@PathVariable long delay) {
+        System.out.println("time limiter endpoint");
+        return CompletableFuture.supplyAsync(()->externalAPICaller.callApiWithDelay(delay));
     }
 
     @GetMapping("/bulkhead")
@@ -61,5 +71,12 @@ public class ApiController {
     public String fallbackAfterRetry(Exception ex) {
         return "all retries have exhausted";
     }
-
+    public String fallbackAfterCircuitBreaker(Exception ex) {
+        System.out.println(ex.getMessage());
+        return "fallback called";
+    }
+    public CompletableFuture<String> fallbackAfterTimeLimiter(Exception ex) {
+        System.out.println(ex.getMessage());
+        return CompletableFuture.supplyAsync(()->"fallback");
+    }
 }
