@@ -19,7 +19,8 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable String id, @RequestParam(defaultValue = "simple-retry") String retryType) {
+    public ResponseEntity<Movie> getMovieById(@PathVariable String id,
+                                              @RequestParam(defaultValue = "simple-retry") String retryType) {
         switch (retryType) {
             case "simple-retry" -> {
                 log.info("Simple retry example");
