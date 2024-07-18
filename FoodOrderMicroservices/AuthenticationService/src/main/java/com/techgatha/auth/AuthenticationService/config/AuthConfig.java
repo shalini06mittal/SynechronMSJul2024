@@ -42,10 +42,10 @@ public class AuthConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( authorizationManagerRequestMatcherRegistry->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/auth/register",
+                                .requestMatchers(
                                         "/h2-console/**",
                                         "/auth/user/**",
-                                        "/auth/token")
+                                        "/auth/**")
                                 .permitAll()
                                 .anyRequest().authenticated())
                 .build();

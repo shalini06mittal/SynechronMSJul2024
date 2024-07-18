@@ -41,15 +41,11 @@ public class AuthenticateController {
 
     @PostMapping("/token")
     public String getToken(@RequestBody AuthenticationRequest authRequest) {
-        System.out.println("get token "+authRequest.getUsername()+" "+authRequest.getPassword());
+
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-      //  Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        System.out.println(authenticate);
         if (authenticate.isAuthenticated()) {
-            System.out.println("not true");
             return authService.generateToken(authRequest.getUsername());
         } else {
-            System.out.println("true");
             throw new RuntimeException("invalid access");
         }
 
@@ -59,5 +55,16 @@ public class AuthenticateController {
         return authService.getUserInfo(id);
     }
 
+    @GetMapping("/validate")
+    public String validateToken(@RequestParam String token){
+        System.out.println(token);
+        try {
+            authService.validateToken(token);
+            return "Token is valid";
+        }catch (Exception e){
+            return "Token not valid";
+        }
+
+    }
 
 }
